@@ -1,0 +1,36 @@
+name: pycompat-audit
+description: Audit whether a Python package's declared support matches its CI matrix.
+author: pycompat-audit contributors
+
+branding:
+  icon: check-circle
+  color: blue
+
+inputs:
+  path:
+    description: Repository path to audit.
+    required: false
+    default: "."
+  strict:
+    description: Fail the workflow when warnings are found.
+    required: false
+    default: "true"
+
+runs:
+  using: composite
+  steps:
+    - name: Install pycompat-audit
+      shell: bash
+      run: python -m pip install "$GITHUB_ACTION_PATH"
+    - name: Audit Python compatibility contract
+      shell: bash
+      env:
+        PYCOMPAT_AUDIT_PATH: ${{ inputs.path }}
+        PYCOMPAT_AUDIT_STRICT: ${{ inputs.strict }}
+      run: |
+        args=("$PYCOMPAT_AUDIT_PATH")
+        if [ "$PYCOMPAT_AUDIT_STRICT" = "true" ]; then
+          args=(--strict "${args[@]}")
+        fi
+        pycompat-audit "${args[@]}"
+

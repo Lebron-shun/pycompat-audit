@@ -43,6 +43,30 @@ Use JSON when another tool needs to consume the result:
 pycompat-audit --format json .
 ```
 
+## Use the GitHub Action
+
+Add this job to a workflow:
+
+```yaml
+jobs:
+  compatibility-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: Lebron-shun/pycompat-audit@v0.2.0
+```
+
+Warnings fail the workflow by default. To report warnings without failing:
+
+```yaml
+- uses: Lebron-shun/pycompat-audit@v0.2.0
+  with:
+    strict: "false"
+```
+
 ## What the first release checks
 
 - A `pyproject.toml` file exists and declares `[project].requires-python`.
@@ -56,7 +80,6 @@ it does not try to replace a test runner, build backend, or linter.
 
 ## Roadmap
 
-- Add a reusable GitHub Action.
 - Support `tox`, `nox`, and `uv` matrices.
 - Offer opt-in checks for Python release and end-of-life dates.
 - Publish SARIF output for GitHub code scanning.
@@ -69,4 +92,3 @@ opening a pull request.
 ## License
 
 MIT
-
