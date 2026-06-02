@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pycompat-audit"
+version = "0.1.0"
+description = "Audit whether a Python package's declared support matches its CI matrix."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+  { name = "pycompat-audit contributors" },
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+  "packaging>=24.0",
+  "ruamel.yaml>=0.18.10",
+]
+
+[project.urls]
+Homepage = "https://github.com/Lebron-shun/pycompat-audit"
+Issues = "https://github.com/Lebron-shun/pycompat-audit/issues"
+
+[project.scripts]
+pycompat-audit = "pycompat_audit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
